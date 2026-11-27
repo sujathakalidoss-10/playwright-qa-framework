@@ -1,6 +1,6 @@
 import { test, expect } from '../../src/fixtures';
-import { env } from '../../config/env';
 import { invalidLoginCases } from '../../src/data/loginData';
+import { loginAsAdmin } from '../../src/utils/authHelper';
 
 /**
  * Feature under test: OrangeHRM authentication.
@@ -19,13 +19,9 @@ test.describe('OrangeHRM UI - Login', () => {
   });
 
   test('admin can log in and log out @smoke', async ({ page, loginPage, dashboardPage }) => {
-    await test.step('log in with valid credentials', async () => {
-      await loginPage.login(env.orangeHrm.username, env.orangeHrm.password);
-    });
-
-    await test.step('lands on the dashboard', async () => {
-      await expect(page).toHaveURL(dashboardPage.path);
-      await expect(dashboardPage.heading).toBeVisible();
+    await test.step('log in with valid credentials and land on the dashboard', async () => {
+      // Common helper: opens the login page, submits admin credentials, asserts the dashboard.
+      await loginAsAdmin(page);
     });
 
     await test.step('log out returns to the login page', async () => {

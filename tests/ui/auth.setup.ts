@@ -1,5 +1,6 @@
-import { test as setup, expect } from '../../src/fixtures';
-import { env, adminStorageState } from '../../config/env';
+import { test as setup } from '../../src/fixtures';
+import { adminStorageState } from '../../config/env';
+import { loginAsAdmin } from '../../src/utils/authHelper';
 
 /**
  * Runs once before the UI project: logs in through the real form and saves the session
@@ -8,10 +9,8 @@ import { env, adminStorageState } from '../../config/env';
  * instead of failing every test.
  */
 
-setup('log in as admin and save the session', async ({ page, loginPage, dashboardPage }) => {
-  await loginPage.open();
-  await loginPage.login(env.orangeHrm.username, env.orangeHrm.password);
-  await expect(page).toHaveURL(dashboardPage.path);
+setup('log in as admin and save the session', async ({ page }) => {
+  await loginAsAdmin(page);
 
   await page.context().storageState({ path: adminStorageState });
 });
