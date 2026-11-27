@@ -118,3 +118,4 @@ Annotations such as `defect`, `spec-deviation` and `risk` appear on each test in
 - **UI tests log in once.** The `ui-setup` project logs in and saves the session to `.auth/admin.json` (git-ignored); `npm run test:ui` runs it automatically first. Login tests start with no session.
 - **UI tests clean up after themselves** – employees they create are deleted through OrangeHRM's REST API, even when a test fails.
 - **The OrangeHRM demo resets periodically** and can be slow; timeouts are set accordingly and CI retries up to twice (locally, retries are off so flakiness is visible).
+# playwright-qa-framework
